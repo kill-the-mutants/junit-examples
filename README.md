@@ -16,16 +16,21 @@ Here is where the tests go for Snippet.java.
 ```
 junit-examples
 │   README.md
+│   run.sh
 │
-├───example1
-│   │   Snippet.java
-│   │   TestSuite.java
-│   │   Tests.java
-│
-├───example2
-│   │   ...
-│
-│   ...
+├───examples
+│   │
+│   ├───example1
+│   │   │   Snippet.java
+│   │   │   TestSuite.java
+│   │   │   Tests.java
+│   │
+│   ├───example2
+│   │   │   Snippet.java
+│   │   │   TestSuite.java
+│   │   │   Tests.java
+│   │
+│   │ ...
 │
 └───dependencies
     │   # Look below; paste these in yourself!

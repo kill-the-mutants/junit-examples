@@ -1,7 +1,7 @@
 #!/bin/sh
 
 DEP_DIR="dependencies"
-EXAMPLE_DIR="$1"
+EXAMPLE_DIR="examples/$1"
 
 # check if we have a real example folder
 bad_dir ()
@@ -16,8 +16,6 @@ bad_dir ()
 
 case $EXAMPLE_DIR in
   "")           bad_dir ;;
-  .git)         bad_dir ".git" ;;
-  dependencies) bad_dir "dependencies" ;;
   *)            if [ ! -d $EXAMPLE_DIR ]; then
                   bad_dir "non-existent $EXAMPLE_DIR"
                 fi
@@ -28,5 +26,6 @@ CLASSPATH=$DEP_DIR/*
 javac -cp "$CLASSPATH" $EXAMPLE_DIR/*.java
 
 # run
-CLASSPATH=$CLASSPATH:$EXAMPLE_DIR
-java -cp "$CLASSPATH" TestSuite
+CLASSPATH=$CLASSPATH:.
+PACKAGE=$EXAMPLE_DIR
+java -cp "$CLASSPATH" $PACKAGE.TestSuite

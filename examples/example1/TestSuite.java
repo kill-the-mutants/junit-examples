@@ -1,3 +1,5 @@
+package examples.example1;
+
 /*
  * Special thanks to
  * http://users.csc.calpoly.edu/~djanzen/tdl/tddintro/helloworld/
