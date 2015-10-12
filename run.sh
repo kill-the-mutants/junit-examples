@@ -2,23 +2,32 @@
 
 DEP_DIR="dependencies"
 EXAMPLE_DIR="examples/$1"
+TEST_TOOL="$2"
 
-# check if we have a real example folder
-bad_dir ()
+print_usage_and_exit()
 {
-  if [ "$1" != 1 ]; then
-    echo "You passed in the $1 folder."
-  fi
-  echo "You must pass an example folder to run. Try running:"
-  echo "./run.sh example1"
+  echo "Usage: ./run.sh [example1|example2|...] [junit|pit]"
   exit 0
 }
 
-case $EXAMPLE_DIR in
-  "") bad_dir ;;
-  *)  if [ ! -d $EXAMPLE_DIR ]; then
-        bad_dir "non-existent $EXAMPLE_DIR"
-      fi
+#check if we have the correct number of arguments
+if [[ $# -ne 2 ]]; then
+  print_usage_and_exit
+fi
+
+# check if we have a real example folder
+if [ ! -d $EXAMPLE_DIR ]; then
+  echo "$EXAMPLE_DIR does not exist."
+  print_usage_and_exit
+fi
+
+# check if we have a supported test tool
+case $TEST_TOOL in
+  junit)  ;;
+  pit)    ;;
+  *)      echo "$TEST_TOOL is not a supported test tool."
+          print_usage_and_exit
+          ;;
 esac
 
 # compile
@@ -27,5 +36,20 @@ javac -cp "$CLASSPATH" $EXAMPLE_DIR/*.java
 
 # run
 CLASSPATH=$CLASSPATH:.
-PACKAGE=$EXAMPLE_DIR
-java -cp "$CLASSPATH" $PACKAGE.TestSuite
+PACKAGE=examples.$1
+case $TEST_TOOL in
+
+  # vanilla JUnit
+  junit)  java -cp "$CLASSPATH" $PACKAGE.TestSuite
+          ;;
+
+  # PIT mutation testing
+  pit)    java -cp $CLASSPATH \
+              org.pitest.mutationtest.commandline.MutationCoverageReport \
+              --reportDir . \
+              --sourceDirs . \
+              --targetClasses $PACKAGE.Snippet \
+              --targetTests $PACKAGE.TestSuite \
+          ;;
+
+esac
