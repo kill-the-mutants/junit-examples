@@ -47,7 +47,7 @@ case $TEST_TOOL in
   # PIT mutation testing
   pit)    java -cp $CLASSPATH \
               org.pitest.mutationtest.commandline.MutationCoverageReport \
-              --reportDir . \
+              --reportDir ./reports \
               --sourceDirs . \
               --targetClasses $PACKAGE.Snippet \
               --targetTests $PACKAGE.TestSuite
