@@ -1,4 +1,4 @@
-# java-examples
+# junit-examples
 Testing examples for Java using the JUnit testing framework. Comes with a script to run your tests with either vanilla JUnit or mutation testing. Currently PIT and Jumble mutation testing tools are supported.
 
 # Structure
