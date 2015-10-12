@@ -15,10 +15,10 @@ bad_dir ()
 }
 
 case $EXAMPLE_DIR in
-  "")           bad_dir ;;
-  *)            if [ ! -d $EXAMPLE_DIR ]; then
-                  bad_dir "non-existent $EXAMPLE_DIR"
-                fi
+  "") bad_dir ;;
+  *)  if [ ! -d $EXAMPLE_DIR ]; then
+        bad_dir "non-existent $EXAMPLE_DIR"
+      fi
 esac
 
 # compile
